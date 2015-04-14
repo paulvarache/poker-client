@@ -1,5 +1,21 @@
 angular.module('pokerPlaning.controllers', [])
 
+.controller('IndexController', ['$scope', '$stateParams', '$window', function ($scope, $stateParams, $window) {
+  var oauth = $stateParams.oauth;
+  var parts = oauth.split('&');
+  var subparts = {};
+  var params = parts.reduce(function (total, item) {
+    subparts = item.split('=');
+    if(subparts[1]) {
+      total[subparts[0]] = subparts[1];
+    }
+    return total;
+  }, {});
+  $window.localStorage.oauth = JSON.stringify(params);
+  window.opener.location.reload(1);
+  window.close();
+}])
+
 .controller('MenuCtrl', ['$scope', '$state', 'User', 'Socket', function ($scope, $state, User, Socket) {
   $scope.logout = function () {
     console.log('Logout');
@@ -9,10 +25,21 @@ angular.module('pokerPlaning.controllers', [])
   }
 }])
 
-.controller('LoginCtrl', function($scope, $state, Google, User) {
+.controller('LoginCtrl', function($scope, $window, $state, Google, User) {
   if (User.get() !== null) {
     $state.go('app.poker');
     return;
+  }
+  if($window.localStorage.oauth) {
+    var oauth = JSON.parse($window.localStorage.oauth);
+    delete $window.localStorage.oauth;
+    Google.getUserWithToken(oauth).then(function (user){
+	User.login(user);
+	$state.go('app.poker');
+    }, function (reason){
+	console.error(reason);
+    });
+    console.log(oauth);
   }
 
   $scope.googleLogin = function () {
@@ -34,7 +61,7 @@ angular.module('pokerPlaning.controllers', [])
   $scope.user = User.get();
   $scope.users = {};
 
-  var socket = Socket.init("http://10.19.1.186:3000");
+  var socket = Socket.init("http://paulvarache.ninja:4000");
   $scope.choices = [1, 2, 3, 5, 8, 13, 20, 40, 100];
   socket.on('disconnect', function () {
     $timeout(function () {

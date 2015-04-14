@@ -23,8 +23,9 @@ angular.module('pokerPlanning', ['ionic', 'pokerPlaning.controllers', 'pokerPlan
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
+.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
+  $locationProvider.html5Mode(true);
+  $stateProvider 
 
   .state('login', {
     url: "/login",
@@ -45,6 +46,11 @@ angular.module('pokerPlanning', ['ionic', 'pokerPlaning.controllers', 'pokerPlan
         controller: 'MainCtrl'
       }
     }
+  })
+
+  .state('index',{
+    url: "/:oauth",
+    controller: "IndexController"
   })
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');

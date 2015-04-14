@@ -20,7 +20,24 @@ angular.module('pokerPlaning.services', [])
               }, deffered.reject)
             }, deffered.reject);
             return deffered.promise;
-        }
+        },
+	getUserWithToken: function (oauth) {
+		var deffered = $q.defer();
+              $http({
+                method: 'GET',
+                url: 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json',
+                headers: {
+                  "Authorization": oauth.token_type + " " + oauth.access_token
+                }
+              }).then(function (results) {
+                var user = {
+                  username: results.data.name,
+                  picture: results.data.picture
+                }
+                deffered.resolve(user);
+              }, deffered.reject)
+            return deffered.promise;
+	}
     };
 }])
 .factory('Socket', ["$q", function ($q) {
