@@ -41,7 +41,7 @@ angular.module('pokerPlaning.services', [])
                 return deffered.promise;
 	    },
         browserLogin: function () {
-            window.open('https://accounts.google.com/o/oauth2/auth?client_id=' + clientId + '&redirect_uri=http://poker.paulvarache.ninja/callback&scope=' + appScope.join(" ") + '&approval_prompt=force&response_type=token', '_blank', 'location=no,clearsessioncache=yes,clearcache=yes');
+            window.open('https://accounts.google.com/o/oauth2/auth?client_id=' + clientId + '&redirect_uri=http://poker.paulvarache.ninja/callback/&scope=' + appScope.join(" ") + '&approval_prompt=force&response_type=token', '_blank', 'location=no,clearsessioncache=yes,clearcache=yes');
         }
     };
 }])
