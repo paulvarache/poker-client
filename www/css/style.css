@@ -1,0 +1,80 @@
+/* Empty. Add your own CSS if you like */
+.poker-card-cell {
+    font-size: 1em;
+    padding: 10px;
+    display: inline-block;
+    width: 33.333333%;
+    padding: 15px;
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: border-box;
+    transition: all ease-in 150ms;
+    opacity: 1;
+}
+.bar-poker {
+    background-color: #DA3540;
+}
+.title {
+    color: white;
+}
+.poker-card {
+    margin: 0 auto;
+    border: 1px solid lightgrey;
+    border-radius: 2px;
+    line-height: 50px;
+    font-size: 2em;
+    transition: all ease-in 150ms;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+.poker-card:hover {
+    cursor: pointer;
+}
+.poker-card-cell.selected {
+    width: 100%;
+}
+.poker-card-cell.selected>.poker-card {
+    line-height: 27vh;
+}
+
+.poker-card-cell.hidden {
+    display: none;
+}
+
+.full-screen {
+    width: 100%;
+    height: 100%;
+}
+
+.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #DA3540;
+}
+
+.discreet {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1.2em;
+    font-weight: 200;
+}
+.discreet:hover {
+    border-color: lightgrey;
+}
+
+.ng-hide-add, .ng-hide-remove {
+    display: block !important;
+}
+.poker-card-cell.ng-hide {
+    opacity: 0;
+}
+.avatar {
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-left: 3px;
+}

@@ -1,0 +1,20 @@
+<ion-view view-title="Poker" hide-nav-bar="false">
+    <ion-nav-bar class="bar-poker">
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+      <ion-nav-buttons side="right">
+        <div class="avatar" ng-repeat="user in users | limitTo:4"><img ng-src="{{user.picture}}" width="30"/></div>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+  <ion-content>
+    <div class="cards" ng-show="connected">
+        <div class="poker-card-cell" ng-class="{'selected': $index===selected}" ng-hide="selected!==null&&$index!==selected" ng-repeat="n in choices">
+            <div class="poker-card" ng-click="choice($index)"><br>{{n}}<br><br></div>
+        </div>
+    </div>
+    <button class="button button-full" ng-click="reset()" ng-show="turnEnd">RESET</button>
+    <div ng-show="!connected">Your are not connected</div>
+  </ion-content>
+</ion-view>
