@@ -25,7 +25,12 @@ angular.module('pokerPlanning', ['ionic', 'pokerPlaning.controllers', 'pokerPlan
 
 .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
   $locationProvider.html5Mode(true);
-  $stateProvider 
+  $stateProvider
+
+  .state('index',{
+    url: "/callback/:oauth",
+    controller: "IndexController"
+  })
 
   .state('login', {
     url: "/login",
@@ -46,11 +51,6 @@ angular.module('pokerPlanning', ['ionic', 'pokerPlaning.controllers', 'pokerPlan
         controller: 'MainCtrl'
       }
     }
-  })
-
-  .state('index',{
-    url: "/:oauth",
-    controller: "IndexController"
   })
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');

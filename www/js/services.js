@@ -1,10 +1,12 @@
 angular.module('pokerPlaning.services', [])
 
 .factory('Google', ['$http', "$cordovaOauth", "$q", function ($http, $cordovaOauth, $q) {
+    var clientId = "626450708562-sg49cekkukft0phin3c0h6fh143ppaml.apps.googleusercontent.com";
+    var appScope = ["https://www.googleapis.com/auth/userinfo.profile"];
     return {
         getUser: function () {
             var deffered = $q.defer();
-            $cordovaOauth.google('626450708562-sg49cekkukft0phin3c0h6fh143ppaml.apps.googleusercontent.com', ["https://www.googleapis.com/auth/userinfo.profile"]).then(function (result) {
+            $cordovaOauth.google(clientId, appScope).then(function (result) {
               $http({
                 method: 'GET',
                 url: 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json',
@@ -21,23 +23,26 @@ angular.module('pokerPlaning.services', [])
             }, deffered.reject);
             return deffered.promise;
         },
-	getUserWithToken: function (oauth) {
-		var deffered = $q.defer();
-              $http({
-                method: 'GET',
-                url: 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json',
-                headers: {
-                  "Authorization": oauth.token_type + " " + oauth.access_token
-                }
-              }).then(function (results) {
-                var user = {
-                  username: results.data.name,
-                  picture: results.data.picture
-                }
-                deffered.resolve(user);
-              }, deffered.reject)
-            return deffered.promise;
-	}
+    	getUserWithToken: function (oauth) {
+    		var deffered = $q.defer();
+                  $http({
+                    method: 'GET',
+                    url: 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json',
+                    headers: {
+                      "Authorization": oauth.token_type + " " + oauth.access_token
+                    }
+                  }).then(function (results) {
+                    var user = {
+                      username: results.data.name,
+                      picture: results.data.picture
+                    }
+                    deffered.resolve(user);
+                  }, deffered.reject)
+                return deffered.promise;
+	    },
+        browserLogin: function () {
+            window.open('https://accounts.google.com/o/oauth2/auth?client_id=' + clientId + '&redirect_uri=http://poker.paulvarache.ninja/callback&scope=' + appScope.join(" ") + '&approval_prompt=force&response_type=token', '_blank', 'location=no,clearsessioncache=yes,clearcache=yes');
+        }
     };
 }])
 .factory('Socket', ["$q", function ($q) {

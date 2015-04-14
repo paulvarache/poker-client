@@ -48,7 +48,9 @@ angular.module('pokerPlaning.controllers', [])
       User.login(user);
       $state.go('app.poker');
     }, function (reason) {
-      console.error(reason);
+      if (reason === "Cannot authenticate via a web browser") {
+        Google.browserLogin();
+      }
     });
     };
 })
