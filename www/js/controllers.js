@@ -1,7 +1,9 @@
 angular.module('pokerPlaning.controllers', [])
 
 .controller('IndexController', ['$scope', '$stateParams', '$window', function ($scope, $stateParams, $window) {
-  var oauth = $stateParams.oauth;
+  var urlParts = window.location.href.split('#');
+  if (!urlParts[1]) return;
+  var oauth = urlParts[1];
   var parts = oauth.split('&');
   var subparts = {};
   var params = parts.reduce(function (total, item) {
