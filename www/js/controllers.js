@@ -66,7 +66,7 @@ angular.module('pokerPlaning.controllers', [])
   $scope.users = {};
 
   var socket = Socket.init("http://paulvarache.ninja:4000");
-  $scope.choices = [1, 2, 3, 5, 8, 13, 20, 40, 100];
+  $scope.choices = [0,'1/2',1, 2, 3, 5, 8, 13, 20, 40, 100, '?', '☕'];
   socket.on('disconnect', function () {
     $timeout(function () {
       $scope.connected = false;
